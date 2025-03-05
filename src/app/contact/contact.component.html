@@ -1,0 +1,65 @@
+<h1>Contact Form</h1>
+<form [formGroup]="contacForm" (ngSubmit)="send()">
+  <div class="mb-4">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" formControlName="name" />
+    <div
+      *ngIf="contacForm.get('name')?.touched && contacForm.get('name')?.errors?.['required']"
+      class="alert alert-danger"
+    >
+      This field is required.
+    </div>
+    <div
+      *ngIf="contacForm.get('name')?.touched && contacForm.get('name')?.errors?.['minlength']"
+      class="alert alert-danger"
+    >
+      Name must be longer than
+      {{contacForm.get('name')?.errors?.['minlength'].requiredLength}} charters
+    </div>
+  </div>
+  <div class="mb-4 form-check">
+    <label for="checkAdult" class="form-label"
+      >Are u over 18 years of age?</label
+    >
+    <input
+      type="checkbox"
+      class="form-check-input"
+      id="checkAdult"
+      formControlName="checkAdult"
+    />
+    <!-- <div class="alert alert-danger">This field is required.</div> -->
+  </div>
+  <div class="mb-4">
+    <label for="name" class="form-label">Departament</label>
+    <select
+      name="departament"
+      id="departament"
+      class="form-select form-select-sm"
+      formControlName="departament"
+    >
+      <option selected>Select...</option>
+      <option value="marketing">Marketing</option>
+      <option value="sales">Sales</option>
+      <option value="other">Other</option>
+    </select>
+    <!-- <div class="alert alert-danger">This field is required.</div > -->
+  </div>
+  <div class="mb-4">
+    <label for="name" class="form-label">Comment</label>
+    <textarea
+      placeholder="Escribe un comentario"
+      class="form-control"
+      name="comment"
+      formControlName="comment"
+      id="comment"
+      rows="4"
+    ></textarea>
+    <!-- <div class="alert alert-danger">This field is required.</div> -->
+  </div>
+
+  <div class="d-grid gap-2 col-4 float-end">
+    <button class="btn btn-info btn-lg" [disabled]="contacForm.invalid">Send</button>
+  </div>
+</form>
+
+{{ this.contacForm.value | json }}
